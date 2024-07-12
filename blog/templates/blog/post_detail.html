@@ -13,7 +13,13 @@
                 <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
-                <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder">
+                {% if "placeholder" in post.featured_image.url %}
+                <img src="{% static 'images/default.jpg' %}" class="scale"
+                  alt="placeholder image">
+                {% else %}
+                <img src="{{ post.featured_image.url }}" class="scale"
+                  alt="{{ post.title }}">
+                {% endif %}
             </div>
         </div>
     </div>
@@ -31,7 +37,6 @@
             </div>
         </div>
     </div>
-    <!-- Displaying count of comments -->
     <div class="row">
         <div class="col-12">
             <strong class="text-secondary">
@@ -42,7 +47,6 @@
             <hr>
         </div>
     </div>
-    <!-- Displaying Comments -->
     <div class="row">
         <div class="col-md-8 card mb-4  mt-3 ">
             <h3>Comments:</h3>
@@ -72,7 +76,6 @@
                 {% endfor %}
             </div>
         </div>
-        <!-- Creating New Comments -->
         <div class="col-md-4 card mb-4  mt-3 ">
             <div class="card-body">
                 {% if user.is_authenticated %}
